@@ -14,16 +14,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 
-async function connectDB() {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/tutorial1');
-    console.log('Successfully connected to MongoDB');
-  } catch (err) {
-    console.log('Not connected to the database: ' + err);
-  }
-}
+// Replace with your MongoDB connection string
+const dbURI = 'mongodb://localhost:27017/uas-projek';
 
-connectDB();
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Successfully connected to MongoDB'))
+  .catch(err => console.log('Database connection error:', err));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname + '/public/app/views/home.html'));
@@ -32,3 +28,12 @@ app.get('*', function(req, res) {
 app.listen(port, function() {
   console.log('Running the server on port ' + port);
 });
+
+const articleSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  author: String,
+  date: { type: Date, default: Date.now }
+});
+
+const Article = mongoose.model('Article', articleSchema);
