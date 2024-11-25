@@ -1,39 +1,38 @@
-const express = require('express');
+const express = require("express");
+const mongoose = require("mongoose");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const path = require("path");
 const app = express();
-const port = process.env.PORT || 8000;
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const router = express.Router();
-const appRoutes = require('./app/routes/api')(router);
-const path = require('path');
+const apiRoutes = require("./app/routes/api")(router);
 
-app.use(morgan('dev'));
+// Middleware
+app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + '/public'));
-app.use('/api', appRoutes);
+app.use(express.static(path.join(__dirname, "/public")));
+app.use("/api", apiRoutes);
 
-// Replace with your MongoDB connection string
-const dbURI = 'mongodb://localhost:27017/uas-projek';
+// Koneksi ke MongoDB
+async function connectDB() {
+  try {
+    await mongoose.connect("mongodb://localhost:27017/your_database");
+    console.log("Connected to MongoDB");
+  } catch (error) {
+    console.error("Database connection failed: " + error.message);
+  }
+}
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Successfully connected to MongoDB'))
-  .catch(err => console.log('Database connection error:', err));
+connectDB();
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname + '/public/app/views/home.html'));
+// Routing ke home.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/public/app/views/home.html"));
 });
 
-app.listen(port, function() {
-  console.log('Running the server on port ' + port);
+// Jalankan server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
-
-const articleSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  author: String,
-  date: { type: Date, default: Date.now }
-});
-
-const Article = mongoose.model('Article', articleSchema);
