@@ -62,7 +62,7 @@ app.post('/api/users', (req, res) => {
 
 // Routing ke home.html
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/public/app/views/home.html"));
+  res.sendFile(path.join(__dirname, "/public/views/home.html"));
 });
 
 // Jalankan server
