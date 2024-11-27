@@ -1,0 +1,223 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    height: 100px;
+  }
+
+  .navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+    color: #ccc !important;
+  }
+
+  .nav-link:hover {
+    color: #ffffff !important;
+  }
+
+  .about-header {
+    text-align: center;
+    padding: 60px 0 40px;
+    background: linear-gradient(to right, #1a1a1a, #2c3e50);
+    color: white;
+    margin: -20px -15px 40px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .about-header h2 {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 15px;
+  }
+
+  .about-header h3 {
+    color: #e0e0e0;
+    font-weight: 300;
+  }
+
+  .about-section {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .about-section h3 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+  }
+
+  .mission-values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+  }
+
+  .value-card {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .value-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .value-icon {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 15px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .team-member {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .member-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .member-info {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .member-name {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 5px;
+  }
+
+  .member-role {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 15px;
+  }
+
+  .stats-section {
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    padding: 60px 40px;
+    border-radius: 15px;
+    color: white;
+    margin: 40px 0;
+    text-align: center;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .stat-item {
+    padding: 20px;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .stat-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+  }
+
+  figure {
+    margin: 40px 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  figure img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  figcaption {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: center;
+  }
+
+  figcaption a {
+    color: #2c3e50;
+    text-decoration: none;
+  }
+
+  figcaption a:hover {
+    text-decoration: underline;
+  }
+
+  footer {
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    color: white;
+    text-align: center;
+  }
+
+  .social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5em;
+  }
+
+  .social-icons a:hover {
+    color: #007bff;
+  }
+
+  footer small a {
+    color: #ccc;
+    margin: 0 5px;
+    text-decoration: none;
+  }
+
+  footer small a:hover {
+    text-decoration: underline;
+  }
+
+  /* Tambahkan style berikut untuk cursor crosshair */
+  .navbar-nav .nav-link[href="/contact"],
+  .navbar-nav .nav-link[href="/subscribe"],
+  .navbar-nav .nav-link[href="/login"] {
+    cursor: crosshair !important;
+  }
