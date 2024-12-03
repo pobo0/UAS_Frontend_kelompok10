@@ -40,12 +40,13 @@ body {
     color: #ffffff;
   }
 
-  .navbar .btn-outline-dark {
+  /* Search Button Styles */
+  .navbar .btn-outline-light {
     color: white;
-    border-color: #000000;
+    border-color: #ffffff;
   }
 
-  .navbar .btn-outline-dark:hover {
+  .navbar .btn-outline-light:hover {
     background-color: #333;
     color: white;
   }

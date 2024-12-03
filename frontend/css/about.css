@@ -221,3 +221,26 @@ body {
   .navbar-nav .nav-link[href="/login"] {
     cursor: crosshair !important;
   }
+
+  /* Search Form Styles */
+  .navbar .form-control {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+  }
+
+  .navbar .form-control::placeholder {
+    color: #ffffff;
+  }
+
+  /* Search Button Styles */
+  .navbar .btn-outline-light {
+    color: white;
+    border-color: #ffffff;
+  }
+
+  .navbar .btn-outline-light:hover {
+    background-color: #333;
+    color: white;
+  }
