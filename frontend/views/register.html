@@ -109,7 +109,7 @@
 
           // Send HTTP POST request to API
           $http
-            .post("/api/users", {
+            .post('http://localhost:5000/api/users', {
               username: $scope.user.username,
               email: $scope.user.email,
               password: $scope.user.password,
