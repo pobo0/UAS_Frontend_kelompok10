@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Subscribe = require('../models/subscribe');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -62,7 +63,14 @@ const login = async (req, res) => {
             return res.status(400).json({ message: "Username dan password harus diisi" });
         }
 
-        // Cari user
+        // Cek apakah username ada di dalam koleksi subscribe
+        const subscription = await Subscribe.findOne({ username });
+        let subscribeStatus = 'no';  // Default status adalah 'no'
+        if (subscription) {
+            subscribeStatus = 'yes';  // Jika ada di koleksi subscribe, set status menjadi 'yes'
+        }
+
+        // Cari user di koleksi User
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(401).json({ message: "Username atau password salah" });
@@ -79,6 +87,7 @@ const login = async (req, res) => {
             { 
                 userId: user._id,
                 username: user.username,
+                email: user.email,
                 role: user.role 
             },
             process.env.JWT_SECRET,
@@ -92,7 +101,8 @@ const login = async (req, res) => {
                 userId: user._id,
                 username: user.username,
                 role: user.role,
-                email: user.email
+                email: user.email,
+                subscribe: subscribeStatus  // Menambahkan status subscribe
             },
             token: `Bearer ${token}`,
             tokenType: "Bearer",
@@ -108,7 +118,37 @@ const login = async (req, res) => {
     }
 };
 
+const updatePassword = async (req, res) => {
+    const { username, currentPassword, newPassword } = req.body;
+
+    try {
+        // Cari pengguna berdasarkan username
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Verifikasi password lama
+        const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+        if (!isValidPassword) {
+            return res.status(401).json({ message: "Current password is incorrect" });
+        }
+
+        // Enkripsi password baru
+        const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+        
+        // Perbarui password pengguna
+        user.password = hashedNewPassword;
+        await user.save();
+
+        res.status(200).json({ message: "Password updated successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating password", error: error.message });
+    }
+};
+
 module.exports = {
     register,
-    login
+    login,
+    updatePassword
 };

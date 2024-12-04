@@ -6,6 +6,7 @@ const cors = require('cors');
 const connectDB = require('./src/config/db');
 const authRoutes = require('./src/routes/authRoutes'); // Mengimpor rute auth
 
+
 const app = express();
 
 // Menghubungkan ke database MongoDB
@@ -22,15 +23,6 @@ app.use(express.static(path.join(__dirname, '../frontend/views')));
 // Routes
 app.use('/api/auth', authRoutes); // Rute autentikasi
 
-// Route untuk serve HTML
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/views/home.html'));
-});
-
-// Basic route untuk testing
-app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to RBAC API' });
-});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
