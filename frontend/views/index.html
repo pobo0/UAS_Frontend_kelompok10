@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="lifestyleApp">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +13,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
     <script src="js/app.js"></script>
 </head>
-
-<body>
+<body ng-app="lifestyleApp" ng-controller="MainController">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">Lifestyle Vibes</a>
+            <a class="navbar-brand" href="/">Lifestyle Vibes</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="#/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="views/about.html">About</a>
+                        <a class="nav-link" href="#/about">About</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="views/contact.html">Contact</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="subscribeMenu">
                         <a class="nav-link" href="views/subscribe.html">Subscribe</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="views/login.html">Login</a>
+                    <li class="nav-item" id="usernameMenu" style="display: none;">
+                      <span class="nav-link">Hello, <a href="views/profile.html" id="usernameDisplay"></a>!</span>
                     </li>
+                    <li class="nav-item" id="logoutMenu" style="display: none;">
+                      <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                    </li>
+                    <li class="nav-item" id="loginMenu">
+                      <a class="nav-link" href="views/login.html">Login</a>
+                    </li>                   
                 </ul>
             </div>
             <!-- Search form -->
@@ -62,7 +67,7 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item" ng-repeat="slide in slides" ng-class="{active: $index === 0}">
-            <img ng-src="/img/{{slide.image}}" class="d-block w-100" alt="{{slide.alt}}">
+            <img ng-src="img/{{slide.image}}" class="d-block w-100" alt="{{slide.alt}}">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -82,7 +87,7 @@
           
           <div class="content-grid">
             <article class="content-card" ng-repeat="article in filteredArticles">
-              <img ng-src="/img/{{article.image}}" alt="{{article.alt}}" class="card-image">
+              <img ng-src="img/{{article.image}}" alt="{{article.alt}}" class="card-image">
               <div class="card-content">
                 <span class="category-tag" ng-repeat="tag in article.tags">{{tag}}</span>
                 <h3 class="card-title">{{article.title}}</h3>
@@ -135,5 +140,43 @@
     <!-- Bootstrap Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2/dist/umd/popper.min.js"></script>
+    <script>
+      // Cek apakah user sudah login
+      const authToken = localStorage.getItem('authToken');
+      const username = localStorage.getItem('username');
+      const email = localStorage.getItem('email');
+      const subscribe = localStorage.getItem('subscribe'); // Cek status subscribe
+    
+      if (authToken) {
+        console.log('User is logged in');
+        console.log(authToken, username, email, subscribe);
+        document.getElementById('usernameMenu').style.display = 'block';
+        document.getElementById('logoutMenu').style.display = 'block';
+        document.getElementById('loginMenu').style.display = 'none';
+        document.getElementById('usernameDisplay').textContent = username;
+        
+        // Cek status subscribe
+        if (subscribe === 'yes') {
+          // Ubah menu Subscribe menjadi Subscribed
+          const subscribeLink = document.getElementById('subscribeMenu');
+          subscribeLink.textContent = 'Subscribed'; // Ganti teks
+          subscribeLink.style.pointerEvents = 'none'; // Nonaktifkan klik
+          subscribeLink.style.color = 'gray'; // Ganti warna teks untuk menandakan non-klik
+        }
+      } else {
+        console.log('User is not logged in');
+      }
+    
+      // Fungsi logout
+      function logout() {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('username');
+        localStorage.removeItem('subscribe'); // Pastikan status subscribe juga dihapus saat logout
+        localStorage.removeItem('email'); // Pastikan status subscribe juga dihapus saat logout
+        alert('You have been logged out.');
+        window.location.href = 'views/login.html'; // Redirect ke halaman login
+      }
+    </script>
+     
 </body>
 </html> 

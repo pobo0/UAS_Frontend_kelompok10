@@ -1,73 +1,21 @@
 var app = angular.module('lifestyleApp', ['ngRoute']);
 
-app.config(function($routeProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'MainController'
-        })
-        .when('/about', {
-            templateUrl: 'views/about.html',
-            controller: 'MainController'
-        })
-        .when('/contact', {
-            templateUrl: 'views/contact.html',
-            controller: 'MainController'
-        })
-        .when('/subscribe', {
-            templateUrl: 'views/subscribe.html',
-            controller: 'MainController'
-        })
-        .when('/login', {
-            templateUrl: 'views/login.html',
-            controller: 'MainController'
-        })
-        .when('/register', {
-            templateUrl: 'views/register.html',
-            controller: 'RegisterController'
-        })
-        .otherwise({
-            redirectTo: '/'
-        });
-});
-
-app.controller('MainController', function($scope) {
+app.controller('MainController', function($scope, $http, $window) {
     $scope.pageTitle = 'Lifestyle Vibes';
 
+    // Slide images
     $scope.slides = [
-        { image: '/img/car.jpg', alt: 'Car Image' },
-        { image: '/img/kayak.jpg', alt: 'Kayak Image' },
-        { image: '/img/view.jpg', alt: 'View Image' },
-        { image: '/img/headphone.jpg', alt: 'Headphone Image' }
+        { image: 'car.jpg', alt: 'Car Image' },
+        { image: 'kayak.jpg', alt: 'Kayak Image' },
+        { image: 'view.jpg', alt: 'View Image' },
+        { image: 'headphone.jpg', alt: 'Headphone Image' }
     ];
 
-    $scope.articles = [
-        {
-            image: '/img/view.jpg',
-            alt: 'Wellness',
-            tags: ['Wellness', 'Mental Health'],
-            title: 'Morning Routines for Success',
-            description: 'Discover how successful people start their day and build habits that promote wellness and productivity.',
-            link: '#'
-        },
-        {
-            image: '/img/car.jpg',
-            alt: 'Fashion',
-            tags: ['Fashion', 'Sustainability'],
-            title: 'Sustainable Fashion Guide',
-            description: 'Learn how to build a sustainable wardrobe that\'s both stylish and environmentally conscious.',
-            link: '#'
-        },
-        {
-            image: '/img/kayak.jpg',
-            alt: 'Travel',
-            tags: ['Travel', 'Adventure'],
-            title: 'Hidden Gems: Travel 2024',
-            description: 'Explore off-the-beaten-path destinations that promise unique experiences and unforgettable memories.',
-            link: '#'
-        }
-    ];
+    // Articles initialization
+    $scope.articles = [];
+    $scope.filteredArticles = [];
 
+    // Trending topics
     $scope.trendingTopics = [
         'MindfulLiving',
         'SustainableFashion',
@@ -77,23 +25,70 @@ app.controller('MainController', function($scope) {
         'LifestyleTips'
     ];
 
-    $scope.searchQuery = '';
-    $scope.email = '';
+    // Get articles from localStorage if searched previously
+    var articles = localStorage.getItem('searchedArticles');
+    if (articles) {
+        $scope.articles = JSON.parse(articles);
+        $scope.filteredArticles = $scope.articles;  // Filtered articles from localStorage
+    } else {
+        $scope.filteredArticles = $scope.articles;  // Default articles
+    }
 
+    // Get searchQuery from localStorage if available (from other controller)
+    var searchQuery = localStorage.getItem('searchQuery');
+    if (searchQuery) {
+        $scope.searchQuery = searchQuery;  // Set searchQuery from localStorage
+    } else {
+        $scope.searchQuery = '';  // Default empty searchQuery
+        $http.get('http://localhost:5000/api/articles')
+        .then(function(response) {
+            $scope.articles = response.data.data;
+            $scope.filteredArticles = $scope.articles;  // Set filteredArticles to all articles initially
+        })
+        .catch(function(error) {
+            console.error('Gagal mengambil artikel:', error);
+            $scope.articles = [];
+            $scope.filteredArticles = [];
+        });
+    }
+
+    console.log($scope.filteredArticles)
     $scope.search = function() {
         if ($scope.searchQuery) {
-            $scope.filteredArticles = $scope.articles.filter(article => 
-                article.title.toLowerCase().includes($scope.searchQuery.toLowerCase()) ||
-                article.description.toLowerCase().includes($scope.searchQuery.toLowerCase())
-            );
+            // Store the searchQuery in localStorage to be used in other controllers
+            localStorage.setItem('searchQuery', $scope.searchQuery);
+
+            // Send request to backend with search query
+            $http.get('http://localhost:5000/api/articles/search', { params: { searchQuery: $scope.searchQuery } })
+                .then(function(response) {
+                    // Save the search results to $scope.articles
+                    $scope.articles = response.data.data;
+                    $scope.filteredArticles = $scope.articles;  // Update filteredArticles with search results
+
+                    // Optionally store the search results in localStorage
+                    localStorage.setItem('searchedArticles', JSON.stringify($scope.articles));
+                })
+                .catch(function(error) {
+                    console.error('Gagal mencari artikel:', error);
+                    $scope.articles = [];  // Empty articles if error occurs
+                    $scope.filteredArticles = [];
+                });
         } else {
-            $scope.filteredArticles = $scope.articles;
+            // If search query is empty, show all articles
+            $http.get('http://localhost:5000/api/articles')
+            .then(function(response) {
+                $scope.articles = response.data.data;
+                $scope.filteredArticles = $scope.articles;  // Set filteredArticles to all articles initially
+            })
+            .catch(function(error) {
+                console.error('Gagal mengambil artikel:', error);
+                $scope.articles = [];
+                $scope.filteredArticles = [];
+            });
+            localStorage.removeItem('searchQuery');
+            localStorage.removeItem('searchedArticles');
         }
         console.log('Searching for:', $scope.searchQuery);
-    };
-
-    $scope.subscribe = function() {
-        console.log('Subscribing email:', $scope.email);
     };
 
     // Initialize filteredArticles with all articles
