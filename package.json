@@ -1,0 +1,25 @@
+{
+    "name": "lifestyle-vibes",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "frontend": "lite-server",
+        "backend": "node backend/index.js",
+        "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+    },
+    "dependencies": {
+        "angular": "^1.2.32",
+        "bootstrap": "^5.3.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "lifestyle-vibes": "file:",
+        "mongoose": "^8.0.0"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2",
+        "lite-server": "^2.6.1",
+        "nodemon": "^3.0.2"
+    }
+}

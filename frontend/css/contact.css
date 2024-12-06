@@ -1,0 +1,153 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden; 
+  }
+
+  .navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    height: 100px;
+  }
+
+  .navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-link {
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #ffffff !important;
+  }
+  
+  .navbar .form-control {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+  }
+
+  .navbar .form-control::placeholder {
+    color: #ffffff;
+  }
+
+  .navbar .btn-outline-light {
+    color: white;
+    border-color: #ffffff;
+  }
+
+  .navbar .btn-outline-light:hover {
+    background-color: #333;
+    color: white;
+  }
+
+  footer {
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+  }
+
+  .social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5em;
+  }
+
+  .social-icons a:hover {
+    color: #007bff;
+  }
+
+  footer small a {
+    color: #ccc;
+    margin: 0 5px;
+    text-decoration: none;
+  }
+
+  footer small a:hover {
+    text-decoration: underline;
+  }
+
+  @keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .contact-container lg {
+    padding-top: 50px;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .contact-info {
+    margin: 30px 0;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    opacity: 0;
+    animation: fadeInUp 0.5 ease forwards;
+  }
+
+  .contact-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .contact-item i {
+    font-size: 2em;
+    margin-right: 20px;
+    color: #2c3e50;
+  }
+
+  .contact-item .content h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #2c3e50;
+  }
+
+  .contact-item .content p {
+    margin: 5px 0 0;
+    color: #666;
+  }
+
+  .contact-item a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .section-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 50px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #2c3e50;
+  }

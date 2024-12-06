@@ -1,0 +1,16 @@
+{
+  "port": 3000,
+  "files": ["./frontend/**/*.{html,htm,css,js}"],
+  "server": {
+    "baseDir": "./frontend"
+  },
+  "reloadOnRestart": false,
+  "notify": false,
+  "ghostMode": false,
+  "browser": "default",
+  "reloadDebounce": 2000,
+  "injectChanges": true,
+  "watchOptions": {
+    "ignored": ["node_modules", ".git"]
+  }
+} 

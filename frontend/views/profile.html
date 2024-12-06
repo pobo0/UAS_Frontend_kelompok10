@@ -1,0 +1,122 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="./../css/profile.css">
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="./../js/app.js"></script>
+    <script src="./../js/controller/ProfileController.js"></script>
+</head>
+<body ng-app="lifestyleApp" ng-controller="ProfileController">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">Lifestyle Vibes</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item" id="subscribeMenu">
+                        <a class="nav-link" href="./subscribe.html">Subscribe</a>
+                    </li>
+                    <li class="nav-item" id="usernameMenu" style="display: none;">
+                      <span class="nav-link">Hello, <span id="usernameDisplay"></span>!</span>
+                    </li>
+                    <li class="nav-item" id="logoutMenu" style="display: none;">
+                      <a class="nav-link" href="#" onclick="logout()">Logout</a>
+                    </li>
+                    <li class="nav-item" id="loginMenu">
+                      <a class="nav-link" href="./login.html">Login</a>
+                    </li>                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Profile</h2>
+        
+        <div>
+            <h4>Hello, <span>{{username}}</span>!</h4>
+            <form ng-submit="updatePassword()">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" ng-model="user.currentPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" ng-model="user.newPassword" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" ng-model="user.confirmPassword" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Update Password</button>
+            </form>
+            <form ng-submit="deleteAccount()">
+                <div class="form-group">
+                    <label for="deleteUsername">Username</label>
+                    <input type="text" id="deleteUsername" ng-model="deleteData.username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="deletePassword">Password</label>
+                    <input type="password" id="deletePassword" ng-model="deleteData.password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-danger mt-3">Delete Account</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // Cek apakah user sudah login
+        const authToken = localStorage.getItem('authToken');
+        const username = localStorage.getItem('username');
+        const email = localStorage.getItem('email');
+        const subscribe = localStorage.getItem('subscribe'); // Cek status subscribe
+      
+        if (authToken) {
+          console.log('User is logged in');
+          document.getElementById('usernameMenu').style.display = 'block';
+          document.getElementById('logoutMenu').style.display = 'block';
+          document.getElementById('loginMenu').style.display = 'none';
+          document.getElementById('usernameDisplay').textContent = username;
+          
+          // Cek status subscribe
+          if (subscribe === 'yes') {
+            // Ubah menu Subscribe menjadi Subscribed
+            const subscribeLink = document.getElementById('subscribeMenu');
+            subscribeLink.textContent = 'Subscribed'; // Ganti teks
+            subscribeLink.style.pointerEvents = 'none'; // Nonaktifkan klik
+            subscribeLink.style.color = 'gray'; // Ganti warna teks untuk menandakan non-klik
+          }
+        } else {
+          console.log('User is not logged in');
+        }
+      
+        // Fungsi logout
+        function logout() {
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('username');
+          localStorage.removeItem('subscribe'); // Pastikan status subscribe juga dihapus saat logout
+          localStorage.removeItem('email'); // Pastikan status subscribe juga dihapus saat logout
+          alert('You have been logged out.');
+          window.location.href = 'views/login.html'; // Redirect ke halaman login
+        }
+      </script>
+</body>
+</html>

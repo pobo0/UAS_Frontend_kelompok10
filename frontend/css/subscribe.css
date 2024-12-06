@@ -1,0 +1,116 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #1a1a1a, #2c3e50) !important;
+    height: 100px;
+}
+
+.navbar-brand {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+}
+
+.navbar .form-control {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+}
+
+.navbar .form-control::placeholder {
+    color: #ffffff;
+}
+
+.navbar .btn-outline-light {
+    color: white;
+    border-color: #ffffff;
+}
+
+.navbar .btn-outline-light:hover {
+    background-color: #333;
+    color: white;
+}
+
+.navbar-nav .nav-link[href="/contact"],
+.navbar-nav .nav-link[href="/subscribe"],
+.navbar-nav .nav-link[href="/login"] {
+    cursor: crosshair important;
+}
+
+.container-sm {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 50px auto;
+  max-width: 600px;
+  width: 90%;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border: 2px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-success {
+    background-color: #4CAF50;
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+footer {
+    padding: 20px;
+    background: linear-gradient(to right, #1a1a1a, #2c3e50);
+    color: white;
+    text-align: center;
+}
+
+.social-icons a {
+    color: white;
+    margin: 0 10px;
+    font-size: 1.5em;
+}
+
+.social-icons a:hover {
+    color: #007bff;
+}
+
+footer small a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+footer small a:hover {
+    text-decoration: underline;
+}
